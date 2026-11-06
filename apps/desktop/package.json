@@ -1,9 +1,9 @@
 {
   "name": "hermes",
-  "productName": "Hermes",
+  "productName": "HalloGlitch",
   "private": true,
   "version": "0.0.0",
-  "description": "Native desktop shell for Hermes Agent.",
+  "description": "Desktop shell for HalloGlitch Universal Agent.",
   "author": "Nous Research",
   "repository": {
     "type": "git",

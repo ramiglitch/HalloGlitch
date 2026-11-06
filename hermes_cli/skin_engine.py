@@ -60,7 +60,10 @@ def _wings(*glyphs) -> list[list[str]]:
 _HERMES_BRANDING: dict[str, str] = _branding(
     "Hermes", "☤", "Goodbye! ☤", prompt="❯", help_header="(^_^)? Available Commands")
 
+from hermes_cli.skin_halloglitch import HALLOGLITCH_SKIN
+
 _BUILTIN_SKINS: dict[str, dict[str, Any]] = {
+    "halloglitch": HALLOGLITCH_SKIN,
     "default": {
         "name": "default", "description": "Classic Hermes — gold and kawaii",
         # Dark-authored; values match the TUI's DARK_THEME so both render the same gold.
@@ -342,7 +345,7 @@ _BUILTIN_SKINS: dict[str, dict[str, Any]] = {
     }}
 
 _active_skin: Optional[SkinConfig] = None
-_active_skin_name: str = "default"
+_active_skin_name: str = "halloglitch"
 # Routed multiplex profiles: (name, skin) per home key. ``display.skin`` and ``<home>/skins/*.yaml``
 # are per profile, and the relay display name / TUI skin payload are read under each profile's
 # override — one module slot would be last-writer-wins across profiles. Unscoped keeps the module slot.
@@ -463,15 +466,15 @@ def get_active_skin_name() -> str:
     home_key = _routed_home_key()
     if home_key is not None:
         entry = _active_skin_by_home.get(home_key)
-        return entry[0] if entry else "default"
+        return entry[0] if entry else "halloglitch"
     return _active_skin_name
 
 
 def init_skin_from_config(config: dict) -> None:
     """Initialize the active skin from CLI config at startup."""
     display = config.get("display") or {}
-    skin_name = display.get("skin", "default") if isinstance(display, dict) else "default"
-    set_active_skin(skin_name.strip() if isinstance(skin_name, str) and skin_name.strip() else "default")
+    skin_name = display.get("skin", "halloglitch") if isinstance(display, dict) else "halloglitch"
+    set_active_skin(skin_name.strip() if isinstance(skin_name, str) and skin_name.strip() else "halloglitch")
 
 
 def _active_branding(key: str, fallback: str) -> str:

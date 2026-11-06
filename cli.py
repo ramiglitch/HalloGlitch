@@ -1699,7 +1699,7 @@ def main(
     ignore_rules: bool = False,
 ):
     """
-    Hermes Agent CLI - Interactive AI Assistant
+    HalloGlitch — Universal Agent: An Agent Without Boundaries
     
     Args:
         query: Query to run. On a real TTY this seeds an interactive session

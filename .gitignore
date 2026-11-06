@@ -92,6 +92,8 @@ environments/benchmarks/evals/
 hermes_cli/web_dist/
 # Cross-process web UI build lock (flock target, always empty)
 .web_ui_build.lock
+# Root Python setuptools build output
+/build/
 apps/desktop/build/
 apps/desktop/dist/
 apps/desktop/dist-webapp/

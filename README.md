@@ -1,10 +1,15 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Hermes Agent" width="100%">
+  <img src="assets/banner.png" alt="HalloGlitch Universal Agent" width="100%">
 </p>
 
-# Hermes Agent ☤
+# HalloGlitch ⚡
+
+### Universal Agent — An Agent Without Boundaries
+
+> **Fork Notice**: HalloGlitch is an independent downstream product identity and fork of [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) (MIT License). Built on the Hermes Agent foundation created by [Nous Research](https://nousresearch.com). See [FORK.md](FORK.md) for development rules and upstream synchronization guidelines.
+
 <p align="center">
-  <a href="https://hermes-agent.nousresearch.com/">Hermes Agent</a> | <a href="https://hermes-agent.nousresearch.com/">Hermes Desktop</a>
+  <a href="https://github.com/ramiglitch/HalloGlitch">HalloGlitch Repository</a> | <a href="FORK.md">Fork Architecture (FORK.md)</a>
 </p>
 <p align="center">
   <a href="https://hermes-agent.nousresearch.com/docs/"><img src="https://img.shields.io/badge/Docs-hermes--agent.nousresearch.com-FFD700?style=for-the-badge" alt="Documentation"></a>

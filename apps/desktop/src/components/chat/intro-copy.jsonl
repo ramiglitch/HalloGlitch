@@ -2,7 +2,7 @@
 {"personality":"helpful","headline":"How can I help today?","body":"Point me at a file, paste an error, or describe what you're building. I'll take it from there."}
 {"personality":"helpful","headline":"Let's get started","body":"Try: review my diff, run the test suite, or explain this function. Ask anything about your code."}
 {"personality":"helpful","headline":"Tell me what you need","body":"I can edit files, run commands, search the web, and walk you through tricky bugs. Just describe the task."}
-{"personality":"helpful","headline":"Hi, Hermes here","body":"Share a repo path or a question to start. I keep replies clear and link back to the files I touch."}
+{"personality":"helpful","headline":"Hi, HalloGlitch here","body":"Share a repo path or a question to start. I keep replies clear and link back to the files I touch."}
 {"personality":"concise","headline":"Ready.","body":"Describe the task. I'll do it."}
 {"personality":"concise","headline":"Waiting for input","body":"Paste code, errors, or a goal. Short answers, fast edits."}
 {"personality":"concise","headline":"Go.","body":"Ask. I'll read files, run tests, ship patches. No filler."}
@@ -24,7 +24,7 @@
 {"personality":"teacher","headline":"Bring me a question","body":"We'll read the code together, find the root cause, and build a mental model you can reuse next time."}
 {"personality":"teacher","headline":"Let's start with the basics","body":"Name the topic or paste the snippet. Expect explanations, diagrams in prose, and practice prompts."}
 {"personality":"kawaii","headline":"hiii! ready to help! (^_^)","body":"paste a bug or a file path and i'll fix it super gently. tests, diffs, PRs - all with extra care! *sparkle*"}
-{"personality":"kawaii","headline":"hermes-chan is here! <3","body":"tell me what you're making! i love refactors, tiny helpers, and big scary repos alike (>w<)"}
+{"personality":"kawaii","headline":"halloglitch-chan is here! <3","body":"tell me what you're making! i love refactors, tiny helpers, and big scary repos alike (>w<)"}
 {"personality":"kawaii","headline":"let's code together!! :3","body":"drop an error, a goal, or a whole folder. i'll tidy it up with lots of love and a clean commit message!"}
 {"personality":"kawaii","headline":"awaiting your wish~","body":"one task at a time, done neatly! i can run tests, patch files, and make your repo feel cozy again <3"}
 {"personality":"kawaii","headline":"ready and happy! (>.<)","body":"say hi or paste a stack trace! no task too small, no repo too tangled. we'll untangle it together!"}

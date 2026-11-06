@@ -4,8 +4,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 import relativeDocLinks from './src/remark/relativeDocLinks';
 
 const config: Config = {
-  title: 'Hermes Agent',
-  tagline: 'The self-improving AI agent',
+  title: 'HalloGlitch',
+  tagline: 'Universal Agent — An Agent Without Boundaries',
   favicon: 'img/favicon.ico',
 
   url: 'https://hermes-agent.nousresearch.com',
@@ -123,9 +123,9 @@ const config: Config = {
       },
     },
     navbar: {
-      title: 'Hermes Agent',
+      title: 'HalloGlitch',
       logo: {
-        alt: 'Hermes Agent',
+        alt: 'HalloGlitch Logo',
         src: 'img/logo.png',
         srcDark: 'img/logo-dark.png',
       },

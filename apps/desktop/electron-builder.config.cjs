@@ -57,7 +57,7 @@ const channelRequest = channelBuildRequest()
 
 /** @typedef {import("app-builder-lib").Configuration} Configuration */
 
-const [owner, repo] = (process.env.GITHUB_REPOSITORY || 'NousResearch/hermes-agent').split('/')
+const [owner, repo] = (process.env.GITHUB_REPOSITORY || 'ramiglitch/HalloGlitch').split('/')
 if (!owner || !repo) {
   throw new Error(`invalid GITHUB_REPOSITORY ${process.env.GITHUB_REPOSITORY}`)
 }
@@ -139,6 +139,11 @@ module.exports = {
   ],
   asar: {
     unpack: ['**/*.node', '**/prebuilds/**', 'dist/**']
+  },
+  nativeModules: {
+    npmRebuild: false,
+    nodeGypRebuild: false,
+    buildDependenciesFromSource: false
   },
   mac: {
     // macOS 26 masks every icon into its own squircle: the layered Icon
@@ -235,12 +240,23 @@ module.exports = {
   win: {
     executableName: windowsExecutableName,
     legalTrademarks: displayName,
-    target: ['msix'],
+    target: ['nsis'],
     // The updaters' relaunch waiter is PowerShell run outside the package. The
     // sealed payload's snapshot omits scripts/, so it ships as a resource
     // (RELAUNCH_WAITER_SCRIPT in electron/updater/relaunch-waiter.ts).
     extraResources: [{ from: 'scripts/update-relaunch-waiter.ps1', to: 'update-relaunch-waiter.ps1' }],
     ...windowsSigning()
+  },
+  nsis: {
+    oneClick: false,
+    perMachine: false,
+    allowToChangeInstallationDirectory: true,
+    shortcutName: displayName,
+    installerIcon: 'assets/icon.ico',
+    uninstallerIcon: 'assets/icon.ico',
+    installerHeaderIcon: 'assets/icon.ico',
+    createDesktopShortcut: true,
+    createStartMenuShortcut: true
   },
   msix: {
     // A store build uses the Partner Center packaging identity (the Store

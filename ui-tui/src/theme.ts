@@ -252,13 +252,13 @@ export function themeToneHex(tone: string): string {
 // ── Defaults ─────────────────────────────────────────────────────────
 
 const BRAND: ThemeBrand = {
-  name: 'Hermes Agent',
-  icon: '☤',
-  prompt: '❯',
-  welcome: 'Type your message or /help for commands.',
-  goodbye: 'Goodbye! ☤',
-  tool: '┊',
-  helpHeader: '(^_^)? Commands'
+  name: 'HalloGlitch',
+  icon: '⚡',
+  prompt: '⚡',
+  welcome: 'Welcome to HalloGlitch! An Agent Without Boundaries.',
+  goodbye: 'HalloGlitch session closed. ⚡',
+  tool: '⚡',
+  helpHeader: '(⚡) HalloGlitch Commands'
 }
 
 const cleanPromptSymbol = (s: string | undefined, fallback: string) => {
@@ -370,26 +370,23 @@ export function buildPalette(seeds: ThemeSeeds, isLight: boolean): ThemeColors {
 }
 
 export const DARK_SEEDS: ThemeSeeds = {
-  accent: '#FFBF00',
-  // The classic Hermes navy surfaces are IDENTITY, not derivation drift —
-  // keep them as explicit fill seeds (the ladder derives them for skins
-  // that don't care).
-  activeRow: '#333355',
-  bg: '#101014',
-  border: '#CD7F32',
-  error: '#ef5350',
-  ok: '#4caf50',
-  primary: '#FFD700',
-  prompt: '#FFF8DC',
-  selection: '#3a3a55',
-  shellDollar: '#4dabf7',
-  statusBad: '#FF8C00',
-  statusCritical: '#FF6B6B',
-  statusGood: '#8FBC8F',
-  statusWarn: '#FFD700',
-  surface: '#1a1a2e',
-  text: '#FFF8DC',
-  warn: '#ffa726'
+  accent: '#A9DDF5',
+  activeRow: '#27272A',
+  bg: '#09090B',
+  border: '#B51232',
+  error: '#EF4444',
+  ok: '#22C55E',
+  primary: '#B51232',
+  prompt: '#A9DDF5',
+  selection: '#27272A',
+  shellDollar: '#A9DDF5',
+  statusBad: '#EF4444',
+  statusCritical: '#B51232',
+  statusGood: '#22C55E',
+  statusWarn: '#F59E0B',
+  surface: '#121216',
+  text: '#F4F4F5',
+  warn: '#F59E0B'
 }
 
 // Light-terminal seeds: darker golds/ambers that stay legible on white.
@@ -401,20 +398,20 @@ export const DARK_SEEDS: ThemeSeeds = {
 // render the same thing Cursor always showed. Text/prompt stay ink — body
 // copy historically rendered in the terminal's default near-black fg.
 export const LIGHT_SEEDS: ThemeSeeds = {
-  accent: '#956E00',
-  bg: '#ffffff',
-  border: '#A56628',
-  error: '#C14240',
-  ok: '#367E39',
-  primary: '#867000',
-  prompt: '#2B2014',
-  shellDollar: '#377BB3',
-  statusBad: '#A65A00',
-  statusCritical: '#B94D4D',
-  statusGood: '#5C7A5C',
-  statusWarn: '#867000',
-  text: '#3D2F13',
-  warn: '#956115'
+  accent: '#0284C7',
+  bg: '#FFFFFF',
+  border: '#B51232',
+  error: '#DC2626',
+  ok: '#16A34A',
+  primary: '#991B1B',
+  prompt: '#0284C7',
+  shellDollar: '#0284C7',
+  statusBad: '#DC2626',
+  statusCritical: '#991B1B',
+  statusGood: '#16A34A',
+  statusWarn: '#D97706',
+  text: '#09090B',
+  warn: '#D97706'
 }
 
 export const DARK_THEME: Theme = {
