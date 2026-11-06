@@ -17,6 +17,11 @@ name: HalloGlitch Release & Distribution
         required: false
         type: boolean
         default: false
+      build_only:
+        description: 'Build and validate only (do not publish release)'
+        required: false
+        type: boolean
+        default: true
   push:
     tags:
       - 'v*'
@@ -142,7 +147,15 @@ jobs:
           }
           Write-Host "✓ Verified Desktop Installer: $($exe.Name) ($($exe.Length) bytes)"
 
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: halloglitch-build-artifacts
+          path: release-artifacts/
+          if-no-files-found: error
+
       - name: Publish to GitHub Releases
+        if: github.event_name == 'push' || (github.event.inputs.build_only != 'true' && github.event.inputs.build_only != true)
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
