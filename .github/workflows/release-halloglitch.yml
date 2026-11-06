@@ -34,6 +34,9 @@ jobs:
   build-and-release:
     name: Build & Publish HalloGlitch (Windows)
     runs-on: windows-latest
+    env:
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: "utf-8"
 
     steps:
       - name: Checkout Repository
