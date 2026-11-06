@@ -134,11 +134,13 @@ jobs:
           Write-Host "✓ Verified Checksum Manifest: $($checksums.Length) bytes"
 
           $exe = Get-ChildItem -Path "release-artifacts/*.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
-          if (-not $exe -or $exe.Length -eq 0) {
-            Write-Warning "Windows NSIS installer was not produced in this run."
-          } else {
-            Write-Host "✓ Verified Desktop Installer: $($exe.Name) ($($exe.Length) bytes)"
+          if (-not $exe) {
+            throw "CRITICAL RELEASE FAILURE: Windows NSIS installer (.exe) is missing from release-artifacts! The official Windows release cannot proceed without a valid desktop installer."
           }
+          if ($exe.Length -eq 0) {
+            throw "CRITICAL RELEASE FAILURE: Windows NSIS installer ($($exe.Name)) is 0 bytes (empty file)!"
+          }
+          Write-Host "✓ Verified Desktop Installer: $($exe.Name) ($($exe.Length) bytes)"
 
       - name: Publish to GitHub Releases
         uses: softprops/action-gh-release@v2
@@ -153,12 +155,14 @@ jobs:
 
             Official release of HalloGlitch built on the Hermes Agent core.
 
-            ### Package Contents
-            - **Desktop Windows Installer**: Standalone setup executable for Windows.
-            - **CLI & Agent Wheel**: Distributable Python package for terminal execution.
-            - **Terminal UI (TUI)**: Integrated Ink console experience.
-            - **Web Dashboard**: Embedded FastAPI + React management SPA.
+            ### Downloadable Release Artifacts
+            - **Windows Desktop Installer**: `HalloGlitch-Setup-<version>.exe` (Standalone setup installer for Windows 10/11 x64).
+            - **Python CLI Wheel Package**: `hermes_agent-<version>-py3-none-any.whl` (Standard Python wheel for terminal users; install via `uv pip install`).
+            - **Integrity Manifest**: `SHA256SUMS.txt` (Cryptographic SHA-256 hashes for all downloadable files).
 
+            ### Built-In Capabilities
+            - **Integrated Terminal UI (TUI)**: Ink console interface bundled with the runtime.
+            - **Embedded Web Dashboard**: Management SPA served locally via `halloglitch dashboard`.
             ### Integrity & Checksums
             See `SHA256SUMS.txt` attached below for cryptographic verification.
 
