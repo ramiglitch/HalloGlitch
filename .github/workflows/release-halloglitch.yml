@@ -1,6 +1,6 @@
 name: HalloGlitch Release & Distribution
 
-on:
+'on':
   workflow_dispatch:
     inputs:
       tag:
@@ -66,13 +66,17 @@ jobs:
 
       - name: Run Core Test Suites
         run: |
-          uv run python scripts/run_tests_parallel.py tests/hermes_cli/test_skin* tests/hermes_cli/test_banner* tests/agent/test_prompt_builder*
+          uv run python scripts/run_tests_parallel.py tests/hermes_cli/test_skin_cmd.py tests/hermes_cli/test_skin_engine.py tests/hermes_cli/test_skin_palettes.py tests/hermes_cli/test_banner.py tests/hermes_cli/test_banner_distribution_label.py tests/hermes_cli/test_banner_release_channel.py tests/hermes_cli/test_banner_skills.py tests/hermes_cli/test_banner_skills_width.py tests/agent/test_prompt_builder.py
 
       - name: Build Python CLI Wheel Package
         run: |
           uv build --wheel
         env:
           HERMES_NIX_BUILD: "1"
+
+      - name: Build TUI Distribution
+        run: |
+          pnpm --filter hermes-tui run build
 
       - name: Build Web Dashboard Distribution
         run: |
@@ -88,23 +92,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Python CLI Wheel Package
-        run: |
-          uv build
-
       - name: Stage Artifacts & Generate Checksums
         id: stage
         shell: pwsh
         run: |
-          mkdir -p release-artifacts
-          # Copy desktop installers if generated
+          New-Item -ItemType Directory -Force -Path release-artifacts | Out-Null
+          # Stage desktop installer if built
           if (Test-Path "apps/desktop/release/*.exe") {
             Copy-Item "apps/desktop/release/*.exe" release-artifacts/
           }
           if (Test-Path "apps/desktop/release/*.blockmap") {
             Copy-Item "apps/desktop/release/*.blockmap" release-artifacts/
           }
-          # Copy Python CLI wheels
+          # Stage Python CLI wheels
           if (Test-Path "dist/*.whl") {
             Copy-Item "dist/*.whl" release-artifacts/
           }
@@ -112,11 +112,33 @@ jobs:
             Copy-Item "dist/*.tar.gz" release-artifacts/
           }
           # Generate SHA256 checksums
-          Get-ChildItem release-artifacts | ForEach-Object {
+          Get-ChildItem -File release-artifacts | Where-Object { $_.Name -ne "SHA256SUMS.txt" } | ForEach-Object {
             $hash = (Get-FileHash -Path $_.FullName -Algorithm SHA256).Hash.ToLower()
             "$hash  $($_.Name)" | Out-File -Append -FilePath release-artifacts/SHA256SUMS.txt -Encoding utf8
           }
           Get-Content release-artifacts/SHA256SUMS.txt
+
+      - name: Validate Required Artifacts
+        shell: pwsh
+        run: |
+          $wheel = Get-ChildItem -Path "release-artifacts/*.whl" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $wheel -or $wheel.Length -eq 0) {
+            throw "CRITICAL RELEASE FAILURE: Distributable Python CLI wheel is missing or empty!"
+          }
+          Write-Host "✓ Verified Wheel: $($wheel.Name) ($($wheel.Length) bytes)"
+
+          $checksums = Get-Item -Path "release-artifacts/SHA256SUMS.txt" -ErrorAction SilentlyContinue
+          if (-not $checksums -or $checksums.Length -eq 0) {
+            throw "CRITICAL RELEASE FAILURE: SHA256SUMS.txt is missing or empty!"
+          }
+          Write-Host "✓ Verified Checksum Manifest: $($checksums.Length) bytes"
+
+          $exe = Get-ChildItem -Path "release-artifacts/*.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe -or $exe.Length -eq 0) {
+            Write-Warning "Windows NSIS installer was not produced in this run."
+          } else {
+            Write-Host "✓ Verified Desktop Installer: $($exe.Name) ($($exe.Length) bytes)"
+          }
 
       - name: Publish to GitHub Releases
         uses: softprops/action-gh-release@v2
